@@ -25,12 +25,14 @@ function addLetter(userKeypress) {
     var repeatGuess = lettersGuessed.some(function(item){
         return item === userKeypress;
     })
-   lettersGuessed.push(userKeypress);   
+   lettersGuessed.push(userKeypress); 
+   showLetters();  
 }
 // show letters guessed in browser
 function showLetters() {
-    var guessesString = 
+    document.getElementById("userGuess").innerHTML = lettersGuessed;
 }
+
     
 
 
