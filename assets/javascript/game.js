@@ -11,36 +11,56 @@ var computerGuess =
     String.fromCharCode(
         Math.round(Math.random() * 26) + 97
     );
-
 console.log(computerGuess);
 
 // cath user key stroke
 document.onkeyup = function(event){
     var keyPress = (String.fromCharCode(event.keyCode)).toLowerCase();
-    addLetter(keyPress);
+    
+    if (lettersGuessed.indexOf(keyPress) > -1) {
+        alert("You Guessed that already!??");
+    }
+    else {
+        addLetter(keyPress);
+        lettersGuessed.push(keyPress);
+    }
 }
 
 // add user guess to array 
-function addLetter(userKeypress) {
-    var repeatGuess = lettersGuessed.some(function(item){
-        return item === userKeypress;
-    })
-   lettersGuessed.push(userKeypress); 
-   showLetters();  
-}
-// show letters guessed in browser
+function addLetter(letter) {
+
 function showLetters() {
-    document.getElementById("userGuess").innerHTML = lettersGuessed;
+    document.getElementById("userGuess").append(letter);
 }
+    showLetters();
 
-    
+function guessRight() {
 
+    if (lettersGuessed === computerGuess){
+        alert("You WON!!!!!");
+        wins++;
+        winsFunc();
+        reset();
 
+    }
+    else if (guessesLeft === 0) {
+        alert("Sorry but you lost! Better luck next time!");
+        reset();
+    }
+    else 
+    guessesLeft = guessesLeft -1;
+    showGuessesLeft();
 
-
-
-// check if user input is correct
-// if correct push win ++ to desktop
-// if wrong ++ to geuss lesft ocunt
-// 
-
+    }
+function winsFunc(){
+    document.getElementById("numWins").innerHTML = wins;
+}   
+function reset(){
+    lettersGuessed = [];
+    guessesLeft = 10;
+}
+function showGuessesLeft(){
+    document.getElementById("numGuesses").innerHTML = guessesLeft;
+}
+guessRight();
+}
