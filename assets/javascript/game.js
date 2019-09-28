@@ -3,7 +3,8 @@ var wins = 0;
 var addLetter;
 var userInput;
 var lettersGuessed = [];
-
+var loses = 0;
+var refreshGuesses = [];
 
 
 // computer generates random lettter
@@ -25,42 +26,64 @@ document.onkeyup = function(event){
         lettersGuessed.push(keyPress);
     }
 }
-
 // add user guess to array 
-function addLetter(letter) {
+function addLetter(letter) { 
+    console.log(computerGuess);
 
-function showLetters() {
-    document.getElementById("userGuess").append(letter);
-}
-    showLetters();
+    function showLetters() {
+        document.getElementById("userGuess").append(letter);
+    }
+        showLetters();
+       
+    function guessRight() {
 
-function guessRight() {
+        if (letter === computerGuess){
+            alert("You WON!!!!!");
+            reset();
+            wins = wins + 1;
+            winsFunc();
+        }
+        else if (guessesLeft === 0) {
+            alert("Sorry but you lost! Better luck next time!");
+            loses = loses +1;
+            lostFunc();
+            reset();
+        }
 
-    if (lettersGuessed === computerGuess){
-        alert("You WON!!!!!");
-        wins++;
+        else 
+        guessesLeft = guessesLeft -1;
+        showGuessesLeft();
+        }
+
+    function winsFunc(){
+        document.getElementById("numWins").innerHTML = wins;
+    }   
+    guessRight();
+
+    function reset(){
+        lettersGuessed = [];
+        guessesLeft = 10;
+    }
+
+    function showGuessesLeft(){
+        document.getElementById("numGuesses").innerHTML = guessesLeft;
+    }
+
+    function lostFunc() {
+        document.getElementById("numloses").innerHTML = loses;
+    }
+
+    function startGame() {
+        showGuessesLeft();
         winsFunc();
-        reset();
+        lostFunc();
+    }
+    
+    startGame();
+    
 
-    }
-    else if (guessesLeft === 0) {
-        alert("Sorry but you lost! Better luck next time!");
-        reset();
-    }
-    else 
-    guessesLeft = guessesLeft -1;
-    showGuessesLeft();
+}
 
-    }
-function winsFunc(){
-    document.getElementById("numWins").innerHTML = wins;
-}   
-function reset(){
-    lettersGuessed = [];
-    guessesLeft = 10;
-}
-function showGuessesLeft(){
-    document.getElementById("numGuesses").innerHTML = guessesLeft;
-}
-guessRight();
-}
+
+
+
